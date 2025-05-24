@@ -1,32 +1,53 @@
 <?php
 
-require_once __DIR__ . 'routes/api.php';
+require_once __DIR__ . '/routes/api.php';
+require_once __DIR__ . '/helpers/helper.php';
 
+# Is necessary start session to share data into requests
+session_start();
 
+# TODO
+# we need separete responsabilities when we we start the incoming request
+# Necessary implement an App Class to start life cycle
+# Necessary implement a RouteServiceProvider to handle initial logic of routes
 $request_method = $_SERVER['REQUEST_METHOD'];
-$request_uri = $_SERVER['REQUEST_URI'];
+$request_uri = explode("?", $_SERVER['REQUEST_URI'])[0] ?? '';
+
+/**
+ * We need handle the incoming request using $_SERVER
+ * First we verify the fail first logic, before process and response to client
+ */
 
 if(!isset($allowedApiRoutes[$request_uri])){
-    http_response_code(404);
-    header('Content-Type: application/json');
-    echo json_encode(['error' => 'Not Found']);
+    response(404, 'Content-Type: application/json', ['error' => 'Not Found']);
 }
 
-if(isset($allowedApiRoutes[$request_uri]) && !isset($allowedMethodRoutes[$request_method])){
-    http_response_code(405);
-    header('Content-Type: application/json');
-    echo json_encode(['error' => 'Method Not Allowed']);
+if(isset($allowedApiRoutes[$request_uri]) && !isset($allowedMethodRoutes[$request_uri])){
+    response(405, 'Content-Type: application/json', ['error' => 'Method Not Allowed']);
 }
 
-$apiMethod = $allowedMethodRoutes[$request_method];
-$route = $allowedApiRoutes[$request_uri];
+/**
+ * If in the request we has allowed api routes, we can instance controller class and call the method
+ */
+$controllerClass = explode("@", $allowedApiRoutes[$request_uri])[0] ?? null;
+$methodClass = explode("@", $allowedApiRoutes[$request_uri])[1] ?? null;
+if(!$controllerClass || !$methodClass){
+    response(404, 'Content-Type: application/json', ['error' => 'Not Found']);
+}
 
-$controllerClass = explode("@", $route)[0];
-$methodClass = explode("@", $route)[1];
+# start process of incoming request into controller
+require_once __DIR__ . "/controllers/$controllerClass.php";
 
-require_once __DIR__ . "controllers/$controllerClass.php";
+# TODO
+# Necessary implement Request Http Class
+$request = [
+    'server_info' => $_SERVER,
+    'payload' => $request_method == 'GET' ? $_GET : $_POST # if we'll need to work with other methods is necessary to implement a match function to get correctly allowed method
+];
 
 $baseController = new $controllerClass();
-$baseController->{$methodClass};
+$baseController->$methodClass($request);
+
+# end process of incoming request into controller
 
 ?>
