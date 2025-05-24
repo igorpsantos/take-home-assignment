@@ -4,12 +4,14 @@
 # implement Route interface instead of using array
 $allowedApiRoutes = [
     '/balance' => 'HandleBalanceController@handleBalance',
-    '/event' => 'HandleEventController@handleEvent'
+    '/event' => 'HandleEventController@handleEvent',
+    '/reset' => 'ResetSessionController@reset'
 ];
 
 $allowedMethodRoutes = [
     '/balance' => ['GET'],
-    '/event' => ['POST']
+    '/event' => ['POST'],
+    '/reset' => ['POST']
 ];
 
 

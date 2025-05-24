@@ -7,7 +7,7 @@ require_once __DIR__ . '/helpers/helper.php';
 session_start();
 
 # TODO
-# we need separete responsabilities when we we start the incoming request
+# we need separate responsabilities when we we start the incoming request
 # Necessary implement an App Class to start life cycle
 # Necessary implement a RouteServiceProvider to handle initial logic of routes
 $request_method = $_SERVER['REQUEST_METHOD'];
@@ -19,11 +19,11 @@ $request_uri = explode("?", $_SERVER['REQUEST_URI'])[0] ?? '';
  */
 
 if(!isset($allowedApiRoutes[$request_uri])){
-    response(404, 'Content-Type: application/json', ['error' => 'Not Found']);
+    return response(404, 'Content-Type: application/json', ['error' => 'Not Found']);
 }
 
-if(isset($allowedApiRoutes[$request_uri]) && !isset($allowedMethodRoutes[$request_uri])){
-    response(405, 'Content-Type: application/json', ['error' => 'Method Not Allowed']);
+if(isset($allowedApiRoutes[$request_uri]) && (!isset($allowedMethodRoutes[$request_uri]) || !in_array($request_method, $allowedMethodRoutes[$request_uri]))){
+    return response(405, 'Content-Type: application/json', ['error' => 'Method Not Allowed']);
 }
 
 /**
@@ -32,7 +32,7 @@ if(isset($allowedApiRoutes[$request_uri]) && !isset($allowedMethodRoutes[$reques
 $controllerClass = explode("@", $allowedApiRoutes[$request_uri])[0] ?? null;
 $methodClass = explode("@", $allowedApiRoutes[$request_uri])[1] ?? null;
 if(!$controllerClass || !$methodClass){
-    response(404, 'Content-Type: application/json', ['error' => 'Not Found']);
+   return response(404, 'Content-Type: application/json', ['error' => 'Not Found']);
 }
 
 # start process of incoming request into controller
