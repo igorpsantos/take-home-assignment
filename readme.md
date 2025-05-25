@@ -62,6 +62,11 @@ O projeto foi versionado desde o início com **commits passo a passo**, facilita
 
 ---
 
+## 🚀 Como rodar o projeto localmente
+
+1. **Pré-requisitos**
+   - PHP `8.2` instalado na máquina
+
 ## ✅ Conclusão
 
 A solução foi pensada para ser **simples, direta e funcional**, sem abrir mão das boas práticas de engenharia de software. Mesmo sem frameworks, o código está limpo, desacoplado e preparado para mudanças futuras com facilidade.
