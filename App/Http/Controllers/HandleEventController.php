@@ -60,6 +60,9 @@ class HandleEventController
                 "destination" => $accountDestination
             ]);
         }
+
+        # default return
+        return response(404, 'Content-type: application/json', 0);
     }
 
 }
