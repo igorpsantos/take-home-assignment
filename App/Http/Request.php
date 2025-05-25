@@ -48,7 +48,7 @@ class Request
     public static function getBody(): array
     {
         $input = file_get_contents('php://input');
-        $data = json_decode($input, true);
+        $data = json_decode($input, true) ?? [];
         return $data;
     }
 }

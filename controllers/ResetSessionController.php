@@ -12,7 +12,7 @@ class ResetSessionController
     public function reset()
     {
         session_destroy();
-        return response(200, 'Content-Type: application/json', 'OK');
+        return response(200, "Content-Type: text/plain", "OK");
     }
 
 }

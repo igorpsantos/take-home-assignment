@@ -32,5 +32,5 @@ function response(int $http_code, string $content_type, mixed $response)
 {
     http_response_code($http_code);
     header($content_type);
-    echo json_encode($response);
+    echo $content_type == "Content-Type: text/plain" ? $response : json_encode($response);
 }
