@@ -18,21 +18,21 @@ Escolhi utilizar **PHP puro** como linguagem principal por três motivos:
 
 Organizei o projeto pensando em separação de responsabilidades, princípios do SOLID, Clean Code e facilidade de manutenção. Abaixo, alguns destaques:
 
+```text
 App/
 ├── Http/
-│ ├── Controllers/ # Camada de entrada HTTP (Controllers)
-│ └── Requests/ # Normalização e validação de dados recebidos
-├── Models/ # Representações das entidades (ex: Account)
-├── Services/ # Camada de regras de negócio (ex: AccountService)
-├── Repositories/ # Abstração para acesso a dados
+│   ├── Controllers/        Camada de entrada HTTP (Controllers)
+│   └── Requests/           Normalização e validação dos dados recebidos
+├── Models/                 Representações das entidades (ex: Account)
+├── Services/               Camada de regras de negócio (ex: AccountService)
+├── Repositories/           Abstração para acesso a dados
 helpers/
-└── helper.php # Funções utilitárias globais
+└── helper.php              Funções utilitárias globais
 routes/
-└── api.php # Definição das rotas (tipo Router)
+└── api.php                 Definição das rotas (tipo Router)
 storage/
-└── account-state.json # Arquivo usado para simular persistência (ver nota abaixo)
-
-index.php # Entry point da aplicação e ciclo de vida da requisição
+└── account-state.json      Arquivo usado para simular persistência
+index.php                   Entry point da aplicação e ciclo de vida da requisição
 
 
 Além disso:
