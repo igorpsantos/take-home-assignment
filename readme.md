@@ -66,6 +66,16 @@ O projeto foi versionado desde o início com **commits passo a passo**, facilita
 
 1. **Pré-requisitos**
    - PHP `8.2` instalado na máquina
+2. **Rodando o projeto**
+   - php -S localhost:8000
+3. **Acessando a aplicação**
+   - http://localhost:8000
+3. **Rotas disponiveis**
+   - /reset GET
+   - /balance?account_id= GET
+   - /event POST
+
+---
 
 ## ✅ Conclusão
 
