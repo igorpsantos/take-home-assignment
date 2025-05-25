@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/routes/api.php';
 require_once __DIR__ . '/helpers/helper.php';
+require_once __DIR__ . '/App/Http/Request.php';
 
 # Is necessary start session to share data into requests
 session_start();
@@ -38,13 +39,11 @@ if(!$controllerClass || !$methodClass){
 # start process of incoming request into controller
 require_once __DIR__ . "/controllers/$controllerClass.php";
 
-# TODO
-# Necessary implement Request Http Class
-$request = [
-    'server_info' => $_SERVER,
-    'payload' => $request_method == 'GET' ? $_GET : $_POST # if we'll need to work with other methods is necessary to implement a match function to get correctly allowed method
-];
+# capture raw request
+$request = new Request();
+$request->capture();
 
+# instace new controller for each request
 $baseController = new $controllerClass();
 $baseController->$methodClass($request);
 
