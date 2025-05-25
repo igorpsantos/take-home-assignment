@@ -2,10 +2,7 @@
 
 require_once __DIR__ . '/routes/api.php';
 require_once __DIR__ . '/helpers/helper.php';
-require_once __DIR__ . '/App/Http/Request.php';
-
-# Is necessary start session to share data into requests
-session_start();
+require_once __DIR__ . '/App/Http/Requests/Request.php';
 
 # TODO
 # we need separate responsabilities when we we start the incoming request
@@ -37,7 +34,7 @@ if(!$controllerClass || !$methodClass){
 }
 
 # start process of incoming request into controller
-require_once __DIR__ . "/controllers/$controllerClass.php";
+require_once __DIR__ . "/App/Http/Controllers/$controllerClass.php";
 
 # capture raw request
 $request = new Request();
