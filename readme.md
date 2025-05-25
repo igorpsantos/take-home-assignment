@@ -33,7 +33,7 @@ routes/
 storage/
 └── account-state.json      Arquivo usado para simular persistência
 index.php                   Entry point da aplicação e ciclo de vida da requisição
-
+´´´
 
 Além disso:
 - Criei uma estrutura de **roteamento minimalista** baseada no método e URI.
